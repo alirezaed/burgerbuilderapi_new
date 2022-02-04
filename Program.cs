@@ -14,13 +14,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwaggerUI();
+
 app.UseDeveloperExceptionPage();
+app.UseSwagger(x => x.SerializeAsV2 = true);
 
 #region Users
 app.MapPost("users/login", (LoginViewModel loginViewModel, [FromServices] IUserService userService) =>
